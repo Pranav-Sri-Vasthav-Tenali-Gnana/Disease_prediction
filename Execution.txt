@@ -1,0 +1,13 @@
+Add python Interpreter
+create virtual Environment
+	cd venv
+	Scripts\activate
+install Packages
+	pip install ---
+	(If needed)python -m pip install --upgrade pip
+Run Xampp
+Connect to Sqlyog 
+	disease.sql
+Run
+	cd CODE
+	python main.py
