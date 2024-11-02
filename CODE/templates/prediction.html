@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Air Pollution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+    <meta name="keywords"
+        content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+    <meta name="author" content="FreeHTML5.co" />
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,400italic,700' rel='stylesheet'
+        type='text/css'>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="static/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="static/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="static/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="static/css/magnific-popup.css">
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="static/css/owl.theme.default.min.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="static/css/style.css">
+
+    <!-- Modernizr JS -->
+    <script src="static/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+	<script src="static/js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+    <header role="banner" id="fh5co-header" style="color: red">
+        <div class="fluid-container">
+            <nav class="navbar navbar-default navbar-fixed-top js-fullheight"
+                style="margin-top:40px; position: absolute;background-color: #fff0;border-bottom-color: #fff0;">
+                <ul style="display:flex; gap:50px;">
+                    <li style="float:left; padding:10px 35px; list-style:none; background-color:pink; border-radius:25px;" class="active">
+                        <a href="{{ url_for ('phome') }}"style="text-decoration:none; color:black;">Home</a>
+                    </li>
+                    <li style="float:left; padding:10px 35px; list-style:none; background-color:pink; border-radius:25px;">
+                        <a style="text-decoration:none; color:black;" href="{{url_for('load')}}">Load Dataset</a>
+                    </li>
+                    <li style="float:left; padding:10px 35px; list-style:none; background-color:pink; border-radius:25px;">
+                        <a style="text-decoration:none; color:black;" href="{{url_for('preprocess')}}">Preprocess</a>
+                    </li>
+                    <li style="float:left; padding:10px 35px; list-style:none; background-color:pink; border-radius:25px;">
+                        <a style="text-decoration:none; color:black;" href="{{url_for('model')}}">Model Training</a>
+                    </li>
+                    <li style="float:left; padding:10px 35px; list-style:none; background-color:green; border-radius:25px;">
+                        <a style="text-decoration:none; color:black;" href="{{url_for('prediction')}}"><b>Prediction</b></a>
+                    </li>
+                    <li style="float:left; padding:10px 35px; list-style:none; background-color:pink; border-radius:25px;">
+                        <a style="text-decoration:none; color:black;" href="{{url_for('chat')}}">Chat</a>
+                    </li>
+                    <li style="float:left; margin-left:180px; padding:10px 35px; list-style:none; background-color:red; border-radius:25px;">
+                        <a style="text-decoration:none; color:white;" href="{{url_for('logout')}}">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <section id="fh5co-home" data-section="home" style="background-image: url(static/images/bgchange.jpg);height:1050px"
+        data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box">
+                            <h3 style="color: orange; font-size:20px; margin-top:200px; margin-left:50px; width:1100px;">
+                                <b>Step 04: Enter The Symptoms You Have with value 1</b>
+                            </h3><br>
+                            <h2 style="color: black; font-size:20px;"><b>PREDICTED DISEASE IS: </b></h2>
+                            <center>
+                                <h1 style="background-color:red; color:black; position:absolute; top:100px; left: 350px; width:400px;">
+                                    <marquee><b>{{mag}}</b></marquee>
+                                </h1>
+                            </center>
+
+                            <div class="row" style="border-spacing:10px; bottom: 1050px;">
+                                <div class="section-container">
+                                    {% if result is not defined %}
+                                    <section id="content">
+                                        <center>
+                                            <form action="{{ url_for('prediction') }}" method="post" style="display:table">
+                                                <div class="column" style="border-spacing:10px; bottom: 1050px;position:fixed;top:180px;left:10px">
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="itching" style="display:table-cell; color:white;">ITCHING_RELATED :</label>
+                                                        <input type="text" id="itching" style="width: 100%;" name="itching" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="skin rash" style="display:table-cell; color:white;">SKIN_RASH_RELATED:</label>
+                                                        <input type="text" id="skin rash" style="width: 100%;" name="skin rash" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="continuous sneezing" style="display:table-cell; color:white;">CONTINUOUS_SNEEZING_RELATED :</label>
+                                                        <input type="text" id="continuous sneezing" style="width: 100%;" name="continuous sneezing" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="joint pain" style="display:table-cell; color:white;">JOINT_PAIN_RELATED:</label>
+                                                        <input type="text" id="joint pain" style="width: 100%;" name="joint pain" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="stomach pain" style="display:table-cell; color:white;">STOMACH_PAIN_RELATED:</label>
+                                                        <input type="text" id="stomach pain" style="width: 100%;" name="stomach pain" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="acidity" style="display:table-cell; color:white;">ACIDITY_RELATED :</label>
+                                                        <input type="text" id="acidity" style="width: 100%;"name="acidity" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="ulcers on tongue" style="display:table-cell; color:white;">ULCER_ON_TONGUE_RELATED:</label>
+                                                        <input type="text" id="ulcers on tongue" style="width: 100%;"name="ulcers on tongue" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="vomiting" style="display:table-cell; color:white;">VOMITING_RELATED:</label>
+                                                        <input type="text" id="vomiting" style="width: 100%;" name="vomiting" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="burning micturition"style="display:table-cell; color:white;">BURNING_MICTURITION_RELATED:</label>
+                                                        <input type="text" id="burning micturition" style="width: 100%;"name="burning micturition" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="spotting urination" style="display:table-cell; color:white;">SPOTTING_URINATION_RELATED:</label>
+                                                        <input type="text" id="spotting urination" style="width: 100%;"name="spotting urination" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="fatigue"style="display:table-cell; color:white;">FATIGUE_RELATED:</label>
+                                                        <input type="text" id="fatigue" style="width: 100%;" name="fatigue" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="weight gain"style="display:table-cell; color:white;">WEIGHT_GAIN_RELATED :</label>
+                                                        <input type="text" id="weight gain" style="width: 100%;"name="weight gain" value="0">
+                                                    </p>
+                                                </div>
+
+                                                <div class="column" style="border-spacing:10px; bottom: 1050px; position:fixed;top:180px;left:600px">
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="anxiety"style="display:table-cell; color:white;">ANXIETY_RELATED :</label>
+                                                        <input type="text" id="anxiety" style="width: 100%;"name="anxiety" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="restlessness"style="display:table-cell; color:white;">RESTLESSNESS_RELATED :</label>
+                                                        <input type="text" id="restlessness" style="width: 100%;"name="restlessness" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="cough"style="display:table-cell; color:white;">COUGH_RELATED:</label>
+                                                        <input type="text" id="cough" style="width: 100%;" name="cough"value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="high fever"style="display:table-cell; color:white;">HIGH_FEVER_RELATED :</label>
+                                                        <input type="text" id="high fever" style="width: 100%;"name="high fever" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="breathlessness" style="display:table-cell; color:white;">BREATHLESSNESS_RELATED :</label>
+                                                        <input type="text" id="breathlessness" style="width: 100%;" name="breathlessness" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="dehydration" style="display:table-cell; color:white;">DEHYDRATION_RELATED :</label>
+                                                        <input type="text" id="dehydration" style="width: 100%;"name="dehydration" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="indigestion"style="display:table-cell; color:white;">INDIGESTION_RELATED :</label>
+                                                        <input type="text" id="indigestion" style="width: 100%;"name="indigestion" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="dark urine" style="display:table-cell; color:white;">DARK_URINE_RELATED  :</label>
+                                                        <input type="text" id="dark urine" style="width: 100%;" name="dark urine" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="nausea"  style="display:table-cell; color:white;">NAUSEA_RELATED  :</label>
+                                                        <input type="text" id="nausea" style="width: 100%;" name="nausea" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="back pain" style="display:table-cell; color:white;">BACK_PAIN_RELATED  :</label>
+                                                        <input type="text" id="back pain" style="width: 100%;" name="back pain" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="constipation"style="display:table-cell; color:white;">CONSTIPATION_RELATED :</label>
+                                                        <input type="text" id="constipation" style="width: 100%;" name="constipation" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="yellowing of eyes" style="display:table-cell; color:white;">YELLOWING_EYES_RELATED:</label>
+                                                        <input type="text" id="yellowing of eyes" style="width: 100%;"  name="yellowing of eyes" value="0">
+                                                    </p>
+                                                    <p style="display:table-row;color:#FF0000;background-color:black; ">
+                                                        <label for="chest pain" style="display:table-cell; color:white;">CHEST_PAIN_RELATED :</label>
+                                                        <input type="text" id="chest pain" style="width: 100%;"  name="chest pain" value="0">
+                                                    </p>
+                                                </div>
+                                                <input type="submit" value="Predict" style="margin-left:10px; background: #F85A16;  border:none!important; color: #fff; font-size: 16px;text-transform: uppercase;font-weight: 400; width:100px; height:50px;margin-bottom: 0px; position: absolute;top: 790px; right:525px">
+                                            </form>
+                                        </center>
+                                    </section>
+                                </div>
+                                    {% endif %}
+				            </div><br>
+                            <script>
+                              document.addEventListener("DOMContentLoaded", function (event) {
+                                 navActivePage();
+                              });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="static/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="static/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="static/js/jquery.waypoints.min.js"></script>
+    <!-- Carousel -->
+    <script src="static/js/owl.carousel.min.js"></script>
+    <!-- countTo -->
+    <script src="static/js/jquery.countTo.js"></script>
+    <!-- Magnific Popup -->
+    <script src="static/js/jquery.magnific-popup.min.js"></script>
+    <script src="static/js/magnific-popup-options.js"></script>
+    <!-- Main -->
+    <script src="static/js/main.js"></script>
+
+</body>
+</html>
